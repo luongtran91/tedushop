@@ -2,21 +2,21 @@
 
 var myApp = angular.module('myModule', []);
 myApp.controller("schoolController", schoolController);
-myApp.service('Validator', Validator);
-
-schoolController.$inject = ['$scope', 'Validator'];
+myApp.service('ValidatorService', ValidatorService);
+myApp.directive("teduShopDirective", teduShopDirective);
+schoolController.$inject = ['$scope', 'ValidatorService'];
 
 // Controller
-function schoolController($scope, Validator) {
+function schoolController($scope, ValidatorService) {
     $scope.num = 1;
     $scope.onCheckNumber = function () {
-        $scope.message = Validator.checkNumber($scope.num);
+        $scope.message = ValidatorService.checkNumber($scope.num);
     }
 }
 
 
 // Service
-function Validator($window) {
+function ValidatorService($window) {
     return {
         checkNumber: checkNumber
     }
@@ -25,5 +25,13 @@ function Validator($window) {
             return "This is even";
         }
         return 'This is odd';
+    }
+}
+
+// Dirctive
+function teduShopDirective() {
+    return {
+        restric: "E",
+        templateUrl: "/Scripts/spa/teduShopDirective.html"
     }
 }
